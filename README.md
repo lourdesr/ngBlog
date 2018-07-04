@@ -13,4 +13,4 @@ npm install body-parser<br>
 Configure your mysql connection<br>
 
 
-run node server1.js 
+run node server.js 
