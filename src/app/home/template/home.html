@@ -1,0 +1,47 @@
+<div ng-controller="homeCtrl">
+<div ng-include src="'app/home/template/nav.html'">
+</div>
+<br><br><br><br>
+<div class="row">
+		<button class="btn btn-default btn-lg" ng-click="getBlogs()">
+			<span class="glyphicon glyphicon-download-alt"></span><span> Get Recent Posts</span>
+		</button>
+		<button class="btn btn-default btn-lg" ng-click="createPost()">
+			<span class="glyphicon glyphicon-plus"></span><span> Create New Entry</span>
+		</button>
+	</div>
+	<br><br>
+	<!-- BLOG POST LOOP -->
+	<div ng-repeat="item in blogData" ng-if="showPost">
+       <div class="row">
+       	<div class="col-xs-12 col-md-8">
+       	<span class="pull-right">
+       		<button class="btn btn-primary" ng-click="editPostHandler($index,item)" ng-if="!item.edit">
+       			<span class="glyphicon glyphicon-pencil"> Edit</span>
+       		</button>
+       		<button class="btn btn-danger" ng-click="delPost($index, item.id)" ng-if="!item.edit">
+       			<span class="glyphicon glyphicon-trash"> Delete</span>
+       		</button>
+       	</span>
+       		<div ng-if="!item.edit"><p><b><h3>{{item.title}}</h3></b></p><br></div>
+       		<div ng-if="item.edit"><input type="text" placeholder="Title" ng-model="item.title" class="form-control"><br></div>
+       		<div ng-if="!item.edit"><p>{{item.body}}</p><br></div>
+       		<div ng-if="item.edit"><textarea placeholder="Content" ng-model="item.body" class="form-control"></textarea><br></div>
+			<div><p>By {{item.user}}</p><br></div>
+			<button ng-if="item.edit" class="btn btn-success" ng-click="updatePost(item)" type="submit"><span class="glyphicon glyphicon-floppy-disk"> Save</span></button>
+			<button ng-if="item.edit" ng-click="discardUserChanges(item)" class="btn btn-default"><span class="glyphicon glyphicon-remove"> Cancel</span></button>
+       		<hr>
+       		
+       		</div>
+  		 </div>
+	</div>
+	<div ng-if="showPostForm" class="form-group">
+	<form ng-submit="addPost()">
+		<input type="text" class="form-control" placeholder="Title" ng-model="blogContent.title"><br><br>
+		<textarea class="form-control" placeholder="Content" ng-model="blogContent.body"></textarea><br><br>
+		<input type="text" class="form-control" placeholder="Author" ng-model="blogContent.user"><br><br>
+		<input class="btn btn-success" type="submit" value="Publish">
+	</form>
+
+	</div>
+</div>
